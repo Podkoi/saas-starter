@@ -9,9 +9,12 @@ Contents
 - Landing page with hero, features, pricing
 - Demo dashboard with CMS editor (localStorage)
 - Stripe integration: `api/checkout.js` (creates Checkout session when `STRIPE_SECRET_KEY` set)
+- Stripe subscription checkout: `api/subscriptions.js`
+- Stripe customer portal example: `api/portal.js`
 - Stripe webhook example: `api/webhook.js`
 - Theme switcher UI
 - Marketing assets: `marketing/` (pitch deck, one-pager, SVG screenshots)
+- Deployment config: `vercel.json`, `netlify.toml`, GitHub Pages workflow
 - Packaging script: `npm run package` -> `deliverables/saas-starter.zip`
 
 Quick deploy
