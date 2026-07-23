@@ -3,10 +3,10 @@ import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import Footer from '../components/Footer'
 
-export default function Landing({ onOpenDashboard }) {
+export default function Landing({ onOpenDashboard, user, onLogin, onLogout, onOpenLogin }) {
   return (
     <div>
-      <Navbar onAction={onOpenDashboard} />
+      <Navbar onAction={onOpenDashboard} user={user} onLogout={onLogout} onOpenLogin={onOpenLogin} />
       <main className="py-16 px-6 max-w-6xl mx-auto">
         <Hero onAction={onOpenDashboard} />
         <section className="mt-16">
