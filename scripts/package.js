@@ -18,6 +18,18 @@ archive.on('error', function (err) {
 
 archive.pipe(output)
 // include build output and README
+// if PAGES_CUSTOM_DOMAIN env is set, write a CNAME into dist so GitHub Pages can use it
+const customDomain = process.env.PAGES_CUSTOM_DOMAIN || process.env.CUSTOM_DOMAIN || ''
+if (customDomain) {
+  const cnamePath = path.join('dist', 'CNAME')
+  try {
+    fs.mkdirSync(path.dirname(cnamePath), { recursive: true })
+    fs.writeFileSync(cnamePath, customDomain.trim() + '\n')
+    console.log('Wrote CNAME to', cnamePath)
+  } catch (err) {
+    console.warn('Failed to write CNAME:', err.message)
+  }
+}
 archive.directory('dist/', 'dist')
 if (fs.existsSync('README.md')) archive.file('README.md', { name: 'README.md' })
 if (fs.existsSync('.env.example')) archive.file('.env.example', { name: '.env.example' })

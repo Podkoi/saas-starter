@@ -43,6 +43,22 @@ To enable Pages:
 1. In your repository settings, under "Pages", set the source to the `gh-pages` branch (root).
 2. Push to `main` — the `pages.yml` workflow will build and publish automatically.
 
+Packaging with custom domain
+
+When creating the deliverable zip, you can include a `CNAME` so the package contains the custom domain. Set the env var `PAGES_CUSTOM_DOMAIN` when running the package script. Examples:
+
+Unix/macOS:
+
+```bash
+PAGES_CUSTOM_DOMAIN=example.com node scripts/package.js
+```
+
+Windows (PowerShell):
+
+```powershell
+$env:PAGES_CUSTOM_DOMAIN = 'example.com'; node scripts/package.js
+```
+
 What's included
 
 - Landing: hero, features, pricing
