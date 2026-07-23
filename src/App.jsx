@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
+import Billing from './pages/Billing'
 import ThemeSwitcher from './components/ThemeSwitcher'
 import LoginForm from './components/LoginForm'
 
@@ -30,7 +31,30 @@ export default function App() {
   function handleLogout() {
     setUser(null)
     localStorage.removeItem('saas_user')
+    setRoute('landing')
   }
+
+  function handleOpenDashboard() {
+    if (user) {
+      setRoute('dashboard')
+    } else {
+      setShowLogin(true)
+    }
+  }
+
+  function handleOpenBilling() {
+    if (user) {
+      setRoute('billing')
+    } else {
+      setShowLogin(true)
+    }
+  }
+
+  useEffect(() => {
+    if (!user && (route === 'dashboard' || route === 'billing')) {
+      setRoute('landing')
+    }
+  }, [user, route])
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -39,14 +63,16 @@ export default function App() {
       </div>
       {route === 'landing' ? (
         <Landing
-          onOpenDashboard={() => setRoute('dashboard')}
+          onOpenDashboard={handleOpenDashboard}
+          onOpenBilling={handleOpenBilling}
           user={user}
-          onLogin={handleLogin}
           onLogout={handleLogout}
           onOpenLogin={() => setShowLogin(true)}
         />
+      ) : route === 'billing' ? (
+        <Billing onBack={() => setRoute('landing')} />
       ) : (
-        <Dashboard onBack={() => setRoute('landing')} user={user} onLogout={handleLogout} />
+        <Dashboard onBack={() => setRoute('landing')} user={user} onLogout={handleLogout} onOpenBilling={handleOpenBilling} />
       )}
 
       {showLogin && (
