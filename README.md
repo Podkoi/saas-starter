@@ -6,15 +6,18 @@ Environment variables
 
 - `VITE_STRIPE_PUBLISHABLE_KEY`: Your Stripe publishable key (used in frontend when integrating Stripe.js)
 - `ANALYTICS_ID`: Analytics identifier (GA4/UA/Plausible)
- - `STRIPE_SECRET_KEY`: Your Stripe secret key for server-side session creation (optional for local mock)
- - `STRIPE_WEBHOOK_SECRET`: The webhook signing secret for validating Stripe webhooks (optional)
+- `STRIPE_SECRET_KEY`: Your Stripe secret key for server-side session creation (optional for local mock)
+- `STRIPE_PRO_PRICE_ID`: The Stripe Price ID for the Pro subscription plan
+- `STRIPE_CUSTOMER_ID`: (optional) Stripe customer ID for billing portal access
+- `STRIPE_WEBHOOK_SECRET`: The webhook signing secret for validating Stripe webhooks (optional)
 
 Stripe setup (quick)
 
 1. Create a Stripe account and get your Publishable and Secret keys.
-2. Set `VITE_STRIPE_PUBLISHABLE_KEY` and `STRIPE_SECRET_KEY` (and optionally `STRIPE_WEBHOOK_SECRET`) in your hosting env (Vercel/Netlify).
-3. On the server, `api/checkout.js` will create Checkout sessions using `STRIPE_SECRET_KEY`.
-4. Configure webhook endpoint `/api/webhook` in Stripe dashboard and set `STRIPE_WEBHOOK_SECRET`.
+2. Create a recurring price in Stripe and set `STRIPE_PRO_PRICE_ID`.
+3. Set `VITE_STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`, and `STRIPE_PRO_PRICE_ID` in your hosting env (Vercel/Netlify).
+4. Use `/api/subscriptions` for subscription checkout and `/api/portal` for the customer portal.
+5. Configure webhook endpoint `/api/webhook` in Stripe dashboard and set `STRIPE_WEBHOOK_SECRET`.
 
 Theme & customization
 
@@ -76,7 +79,20 @@ Deployment (Vercel)
 
 1. Push this repo to GitHub.
 2. Import project in Vercel and set build command `npm run build` and output directory `dist`.
-3. Add environment variables for any API keys (Stripe, analytics).
+3. Add environment variables for Stripe and analytics.
+
+Deployment (Netlify)
+
+1. Push this repo to GitHub.
+2. Add site in Netlify and set the build command to `npm run build`.
+3. Set the publish directory to `dist`.
+4. Add environment variables for Stripe and analytics.
+
+Deployment (GitHub Pages)
+
+1. Enable Pages source on the `gh-pages` branch.
+2. The `.github/workflows/pages.yml` workflow builds and deploys on push to `main`.
+3. Set `PAGES_CUSTOM_DOMAIN` secret if you want a custom domain.
 
 Marketing pitch (short)
 
