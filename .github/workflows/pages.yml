@@ -25,6 +25,16 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Create CNAME file (optional)
+        run: |
+          if [ -n "${{ secrets.PAGES_CUSTOM_DOMAIN }}" ]; then
+            mkdir -p ./dist
+            echo "${{ secrets.PAGES_CUSTOM_DOMAIN }}" > ./dist/CNAME
+            echo "Wrote CNAME to ./dist/CNAME"
+          else
+            echo "No PAGES_CUSTOM_DOMAIN secret set; skipping CNAME"
+          fi
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
