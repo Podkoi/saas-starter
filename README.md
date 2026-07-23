@@ -34,6 +34,15 @@ npm run dev
 
 Deploy: push to Vercel or Netlify; build command is `npm run build`.
 
+GitHub Pages
+
+This repo includes a GitHub Actions workflow that builds the site and deploys the `dist` directory to the `gh-pages` branch on push to `main`.
+
+To enable Pages:
+
+1. In your repository settings, under "Pages", set the source to the `gh-pages` branch (root).
+2. Push to `main` — the `pages.yml` workflow will build and publish automatically.
+
 What's included
 
 - Landing: hero, features, pricing
