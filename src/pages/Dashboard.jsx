@@ -2,7 +2,7 @@ import React from 'react'
 import CmsEditor from '../components/CmsEditor'
 import CheckoutButton from '../components/CheckoutButton'
 
-export default function Dashboard({ onBack, user, onLogout }) {
+export default function Dashboard({ onBack, user, onLogout, onOpenBilling }) {
   return (
     <div className="min-h-screen">
       <header className="bg-white shadow">
@@ -15,6 +15,7 @@ export default function Dashboard({ onBack, user, onLogout }) {
                 <button onClick={onLogout} className="px-3 py-2 border rounded">Sign out</button>
               </div>
             ) : null}
+            <button onClick={onOpenBilling} className="px-4 py-2 bg-slate-100 text-slate-900 rounded">Billing</button>
             <CheckoutButton />
             <button onClick={onBack} className="px-4 py-2 bg-indigo-600 text-white rounded">Back</button>
           </div>
